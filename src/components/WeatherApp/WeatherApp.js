@@ -22,6 +22,7 @@ const WeatherApp = () => {
           <input type="text" value={city} onChange={changeCity} />
           <input type="submit" className="btn btn-primary" value="Search!" />
         </form>
+        
       </div>
     </div>
   )

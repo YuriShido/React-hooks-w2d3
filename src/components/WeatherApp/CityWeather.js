@@ -1,12 +1,14 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 const CityWeather = (props) => {
 
   const [icon, setIcon] =useState("")
+  const [temp, setTemp] = useState("")
 
   useEffect(() => {
     getWeather()
+   
   }, [props.cityName])
 
 
@@ -29,13 +31,22 @@ const CityWeather = (props) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${props.cityName}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         const resp = await axios.get(url);
         console.log(resp.data);
+        // console.log(resp.data.weather[0].icon)
+
+        setIcon(resp.data.weather[0].icon)
+        setTemp(resp.data.main.temp)
     }
-
+    
+   
+    const iconUrl = `http://openweathermap.org/img/w/${icon}.png`
     // render(){
-        const iconUrl = `http://openweathermap.org/img/w/${icon}.png`
-
         return(
+          <>
             <h1>{props.cityName}</h1>
+            <p>{temp} C</p>
+            <img src={iconUrl} alt="icon"/>
+            
+          </>
         )
     // }
 }
